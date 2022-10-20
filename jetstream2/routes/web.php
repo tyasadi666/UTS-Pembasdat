@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController; //add ProductController
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,14 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'checkUserType']);
 
+Route::get('/product', 'ProductController@index')->name('product');
+Route::get('/create', 'ProductController@create')->name('create');
+Route::post('store/', 'ProductController@store')->name('store');
+Route::get('show/{product}', 'ProductController@show')->name('show');
+Route::get('edit/{product}', 'ProductController@edit')->name('edit');
+Route::put('edit/{product}','ProductController@update')->name('update');
+Route::delete('/{product}','ProductController@destroy')->name('destroy');
+
 Route::get('/admin/dashboard', function(){
     return view('admin-dashboard');
 })->name('admin.dashboard');
@@ -27,6 +36,10 @@ Route::get('/admin/dashboard', function(){
 Route::get('/user/dashboard', function(){
     return view('user-dashboard');
 })->name('user.dashboard');
+
+Route::get('/post', function(){
+    return "post page";
+});
 
 Route::middleware([
     'auth:sanctum',
